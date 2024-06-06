@@ -1,33 +1,25 @@
-package javaProgramming;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
-//Program for Exception Handling
-class MyException extends Exception
+class AgeNotValidException extends Exception
 {
-	MyException(String str)
-	{
-		super(str);
-		
-	}
+    AgeNotValidException(String message)
+    {
+        super(message);
+    }
 }
 public class ExceptionHandling {
-
-	public static void main(String[] args) {
-		Scanner sc=new Scanner(System.in);
-		int age;
-		try {
-		System.out.println("Enter the age of the person: ");
-		age=sc.nextInt();
-		if(age<18)
-		{
-				throw new MyException("You are not eligible");
-		}
-		}
-		catch(Exception e)
-		{
-			System.out.println("Caught my exception");
-			System.out.println(e.getMessage());
-		}
-		
-		
-	}
+    public static void main(String[] args) {
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        try (br) {
+            int age = Integer.parseInt(br.readLine());
+            if (age < 18) throw new AgeNotValidException("Age is not valid!!");
+            else System.out.println("Vote kar madarchod!!");
+        } catch (AgeNotValidException | IOException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            System.out.println("YO YO");
+        }
+    }
 }
